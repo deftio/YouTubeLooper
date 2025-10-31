@@ -12,9 +12,6 @@
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       padding: 20px;
     }
 
@@ -24,7 +21,7 @@
       border-radius: 16px;
       padding: 40px;
       max-width: 720px;
-      width: 100%;
+      margin: 0 auto;
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
     }
 
@@ -55,7 +52,9 @@
       margin-bottom: 8px;
     }
 
-    input {
+    input[type="text"],
+    input[type="number"],
+    input[type="file"] {
       width: 100%;
       padding: 12px 16px;
       border: 2px solid #e2e8f0;
@@ -76,10 +75,9 @@
       gap: 16px;
     }
 
-    /* Button */
+    /* Buttons */
     button {
-      width: 100%;
-      padding: 14px;
+      padding: 14px 20px;
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       color: white;
       border: none;
@@ -88,7 +86,6 @@
       font-weight: 600;
       cursor: pointer;
       transition: transform 0.2s, box-shadow 0.2s;
-      margin-bottom: 32px;
     }
 
     button:hover {
@@ -100,17 +97,81 @@
       transform: translateY(0);
     }
 
+    .btn-primary {
+      width: 100%;
+      margin-bottom: 12px;
+    }
+
+    .btn-secondary {
+      background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+      width: 100%;
+      margin-bottom: 32px;
+    }
+
+    .btn-small {
+      padding: 8px 12px;
+      font-size: 13px;
+      margin: 0 4px;
+    }
+
+    .btn-danger {
+      background: linear-gradient(135deg, #f56565 0%, #e53e3e 100%);
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 32px;
+    }
+
+    .btn-group button {
+      flex: 1;
+      padding: 12px;
+      font-size: 14px;
+    }
+
     /* Player container */
+    .player-wrapper {
+      position: relative;
+      display: none;
+      margin-bottom: 16px;
+    }
+
+    .player-wrapper.active {
+      display: block;
+    }
+
     #player {
       width: 100%;
       aspect-ratio: 16 / 9;
       border-radius: 8px;
       overflow: hidden;
       background: #000;
+    }
+
+    .fullscreen-btn {
+      position: absolute;
+      bottom: 16px;
+      right: 16px;
+      padding: 8px 16px;
+      font-size: 14px;
+      z-index: 10;
+    }
+
+    /* Video title */
+    .video-title {
+      margin-top: 12px;
+      padding: 12px;
+      background: #f7fafc;
+      border-radius: 8px;
+      font-size: 14px;
+      color: #2d3748;
+      font-weight: 500;
+      text-align: center;
       display: none;
     }
 
-    #player.active {
+    .video-title.active {
       display: block;
     }
 
@@ -136,6 +197,105 @@
       color: #a0aec0;
       margin-top: 4px;
     }
+
+    /* Saved clips list */
+    .clips-section {
+      margin-top: 40px;
+      padding-top: 32px;
+      border-top: 2px solid #e2e8f0;
+    }
+
+    .clips-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .clips-header h2 {
+      font-size: 20px;
+      font-weight: 600;
+      color: #1a202c;
+    }
+
+    .clips-list {
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
+    .clip-item {
+      padding: 16px;
+      background: #f7fafc;
+      border-radius: 8px;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .clip-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .clip-title {
+      font-size: 14px;
+      font-weight: 500;
+      color: #2d3748;
+      margin-bottom: 4px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .clip-meta {
+      font-size: 12px;
+      color: #718096;
+    }
+
+    .clip-actions {
+      display: flex;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 40px 20px;
+      color: #a0aec0;
+      font-size: 14px;
+    }
+
+    /* File input styling */
+    .file-input-wrapper {
+      position: relative;
+      overflow: hidden;
+      display: inline-block;
+      width: 100%;
+    }
+
+    .file-input-wrapper input[type=file] {
+      position: absolute;
+      left: -9999px;
+    }
+
+    .file-input-label {
+      display: block;
+      padding: 12px 20px;
+      background: linear-gradient(135deg, #ed8936 0%, #dd6b20 100%);
+      color: white;
+      text-align: center;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .file-input-label:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(237, 137, 54, 0.3);
+    }
   </style>
 </head>
 <body>
@@ -150,7 +310,7 @@
         type="text" 
         id="videoUrl" 
         placeholder="https://www.youtube.com/watch?v=..." 
-        value="https://www.youtube.com/watch?v=w-Ep1j1K_qk"
+        oninput="saveFormData()"
       >
       <div class="helper-text">Paste any YouTube video URL</div>
     </div>
@@ -162,9 +322,9 @@
           type="number" 
           id="startTime" 
           placeholder="0" 
-          value="50.95"
           step="0.01"
           min="0"
+          oninput="saveFormData()"
         >
       </div>
 
@@ -174,20 +334,47 @@
           type="number" 
           id="endTime" 
           placeholder="60" 
-          value="54.5"
           step="0.01"
           min="0"
+          oninput="saveFormData()"
         >
       </div>
     </div>
 
-    <button onclick="loadVideo()">Load & Loop</button>
+    <button class="btn-primary" onclick="loadVideo()">Load & Loop</button>
+    <button class="btn-secondary" onclick="saveToList()">Save to List</button>
 
     <!-- YouTube player container -->
-    <div id="player"></div>
+    <div class="player-wrapper" id="playerWrapper">
+      <div id="player"></div>
+      <button class="fullscreen-btn" onclick="toggleFullscreen()">⛶ Fullscreen</button>
+    </div>
+
+    <!-- Video title display -->
+    <div id="videoTitle" class="video-title"></div>
 
     <!-- Status message -->
     <div id="status" class="status"></div>
+
+    <!-- Saved clips section -->
+    <div class="clips-section">
+      <div class="clips-header">
+        <h2>Saved Clips</h2>
+      </div>
+
+      <div class="btn-group">
+        <button onclick="exportClips()">💾 Save List</button>
+        <div class="file-input-wrapper">
+          <input type="file" id="fileInput" accept=".json" onchange="importClips(event)">
+          <label for="fileInput" class="file-input-label">📂 Load List</label>
+        </div>
+        <button class="btn-danger" onclick="clearAllClips()">🗑️ Clear All</button>
+      </div>
+
+      <div id="clipsList" class="clips-list">
+        <div class="empty-state">No saved clips yet. Save your first loop above!</div>
+      </div>
+    </div>
   </div>
 
   <script>
@@ -198,6 +385,8 @@
     let apiReady = false;
     let pendingVideoId = null;
     let loopTimeout = null;
+    let savedClips = [];
+    let currentVideoTitle = '';
 
     // Load YouTube IFrame API asynchronously
     const tag = document.createElement('script');
@@ -206,13 +395,73 @@
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
     /**
+     * Initialize app - load saved data from localStorage
+     */
+    function initApp() {
+      loadFormData();
+      loadSavedClips();
+      renderClipsList();
+    }
+
+    /**
+     * Save form data to localStorage (cookies alternative)
+     */
+    function saveFormData() {
+      const formData = {
+        url: document.getElementById('videoUrl').value,
+        startTime: document.getElementById('startTime').value,
+        endTime: document.getElementById('endTime').value
+      };
+      localStorage.setItem('youtubeLooperForm', JSON.stringify(formData));
+    }
+
+    /**
+     * Load form data from localStorage
+     */
+    function loadFormData() {
+      const saved = localStorage.getItem('youtubeLooperForm');
+      if (saved) {
+        try {
+          const formData = JSON.parse(saved);
+          document.getElementById('videoUrl').value = formData.url || '';
+          document.getElementById('startTime').value = formData.startTime || '';
+          document.getElementById('endTime').value = formData.endTime || '';
+        } catch (e) {
+          console.error('Error loading form data:', e);
+        }
+      }
+    }
+
+    /**
+     * Load saved clips from localStorage
+     */
+    function loadSavedClips() {
+      const saved = localStorage.getItem('youtubeLooperClips');
+      if (saved) {
+        try {
+          savedClips = JSON.parse(saved);
+        } catch (e) {
+          console.error('Error loading saved clips:', e);
+          savedClips = [];
+        }
+      }
+    }
+
+    /**
+     * Save clips to localStorage
+     */
+    function saveClipsToStorage() {
+      localStorage.setItem('youtubeLooperClips', JSON.stringify(savedClips));
+    }
+
+    /**
      * Extract video ID from various YouTube URL formats
      * Supports: youtube.com/watch?v=ID, youtu.be/ID, youtube.com/embed/ID
      */
     function extractVideoId(url) {
       const patterns = [
         /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\n?#]+)/,
-        /^([a-zA-Z0-9_-]{11})$/  // Direct video ID
+        /^([a-zA-Z0-9_-]{11})$/
       ];
       
       for (const pattern of patterns) {
@@ -222,6 +471,19 @@
         }
       }
       return null;
+    }
+
+    /**
+     * Get video title from YouTube player
+     */
+    function updateVideoTitle() {
+      if (player && player.getVideoData) {
+        const videoData = player.getVideoData();
+        currentVideoTitle = videoData.title || 'Unknown Title';
+        const titleEl = document.getElementById('videoTitle');
+        titleEl.textContent = currentVideoTitle;
+        titleEl.classList.add('active');
+      }
     }
 
     /**
@@ -255,7 +517,6 @@
 
       // Check if YouTube API is ready
       if (!apiReady) {
-        // Queue the video to load once API is ready
         pendingVideoId = videoId;
         showStatus('Loading YouTube API...');
         return;
@@ -266,17 +527,15 @@
         player.loadVideoById(videoId);
         showStatus(`Loading video... Loop: ${startTime}s - ${endTime}s`);
       } else {
-        // Create player for the first time
         initializePlayer(videoId);
       }
 
       // Show player
-      document.getElementById('player').classList.add('active');
+      document.getElementById('playerWrapper').classList.add('active');
     }
 
     /**
      * Initialize YouTube player
-     * This is called by the YouTube API when it's ready
      */
     function initializePlayer(videoId) {
       player = new YT.Player('player', {
@@ -285,7 +544,8 @@
         videoId: videoId,
         playerVars: {
           'playsinline': 1,
-          'rel': 0
+          'rel': 0,
+          'fs': 1
         },
         events: {
           'onReady': onPlayerReady,
@@ -296,48 +556,291 @@
 
     /**
      * Called when player is ready
-     * Seeks to start time and begins playback
      */
     function onPlayerReady(event) {
       player.seekTo(loopSection.start, true);
       player.playVideo();
       isLooping = true;
+      updateVideoTitle();
       showStatus(`Looping: ${loopSection.start}s - ${loopSection.end}s`);
     }
 
     /**
      * Monitor player state changes
-     * Sets up the loop timer when video starts playing
      */
     function onPlayerStateChange(event) {
       if (event.data === YT.PlayerState.PLAYING && isLooping) {
         const currentTime = player.getCurrentTime();
         
-        // If we're outside the loop range, jump to start
         if (currentTime < loopSection.start || currentTime >= loopSection.end) {
           player.seekTo(loopSection.start, true);
         }
         
-        // Clear any existing timeout to avoid overlapping timers
         if (loopTimeout) {
           clearTimeout(loopTimeout);
         }
         
-        // Calculate time until loop end
         const timeUntilEnd = loopSection.end - Math.max(currentTime, loopSection.start);
-        
-        // Schedule restart at the end of the section
         loopTimeout = setTimeout(restartLoop, timeUntilEnd * 1000);
+      }
+
+      // Update title when video info becomes available
+      if (event.data === YT.PlayerState.PLAYING || event.data === YT.PlayerState.PAUSED) {
+        updateVideoTitle();
       }
     }
 
     /**
-     * Restart the loop by seeking back to start time
+     * Restart the loop
      */
     function restartLoop() {
       if (player && isLooping && player.getPlayerState() === YT.PlayerState.PLAYING) {
         player.seekTo(loopSection.start, true);
       }
+    }
+
+    /**
+     * Toggle fullscreen mode for video player
+     * Supports all vendor-prefixed APIs for maximum browser compatibility
+     */
+    function toggleFullscreen() {
+      const playerEl = document.getElementById('player');
+      const iframe = playerEl.querySelector('iframe');
+      const element = iframe || playerEl;
+
+      // Check if we're currently in fullscreen using vendor-specific properties
+      const isFullscreen = document.fullscreenElement || 
+                          document.webkitFullscreenElement || 
+                          document.mozFullScreenElement || 
+                          document.msFullscreenElement;
+
+      if (!isFullscreen) {
+        // Enter fullscreen with vendor prefixes
+        if (element.requestFullscreen) {
+          element.requestFullscreen();
+        } else if (element.webkitRequestFullscreen) {
+          element.webkitRequestFullscreen();
+        } else if (element.mozRequestFullScreen) {
+          element.mozRequestFullScreen();
+        } else if (element.msRequestFullscreen) {
+          element.msRequestFullscreen();
+        }
+      } else {
+        // Exit fullscreen with vendor prefixes
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) {
+          document.webkitExitFullscreen();
+        } else if (document.mozCancelFullScreen) {
+          document.mozCancelFullScreen();
+        } else if (document.msExitFullscreen) {
+          document.msExitFullscreen();
+        }
+      }
+    }
+
+    /**
+     * Save current video to clips list
+     */
+    function saveToList() {
+      const url = document.getElementById('videoUrl').value;
+      const startTime = parseFloat(document.getElementById('startTime').value) || 0;
+      const endTime = parseFloat(document.getElementById('endTime').value) || 0;
+
+      if (!url) {
+        showStatus('Please enter a YouTube URL');
+        return;
+      }
+
+      const videoId = extractVideoId(url);
+      if (!videoId) {
+        showStatus('Invalid YouTube URL');
+        return;
+      }
+
+      if (endTime <= startTime) {
+        showStatus('End time must be greater than start time');
+        return;
+      }
+
+      // Get title from currently playing video or use placeholder
+      const title = currentVideoTitle || 'YouTube Video';
+
+      const clip = {
+        id: Date.now(),
+        url: url,
+        videoId: videoId,
+        title: title,
+        startTime: startTime,
+        endTime: endTime,
+        duration: endTime - startTime
+      };
+
+      savedClips.push(clip);
+      saveClipsToStorage();
+      renderClipsList();
+      showStatus('Clip saved to list!');
+    }
+
+    /**
+     * Play a clip from the saved list
+     */
+    function playClip(clipId) {
+      const clip = savedClips.find(c => c.id === clipId);
+      if (!clip) return;
+
+      document.getElementById('videoUrl').value = clip.url;
+      document.getElementById('startTime').value = clip.startTime;
+      document.getElementById('endTime').value = clip.endTime;
+      saveFormData();
+      loadVideo();
+    }
+
+    /**
+     * Delete a clip from the list
+     */
+    function deleteClip(clipId) {
+      savedClips = savedClips.filter(c => c.id !== clipId);
+      saveClipsToStorage();
+      renderClipsList();
+      showStatus('Clip deleted');
+    }
+
+    /**
+     * Clear all saved clips
+     */
+    function clearAllClips() {
+      if (savedClips.length === 0) return;
+      
+      if (confirm('Are you sure you want to clear all saved clips?')) {
+        savedClips = [];
+        saveClipsToStorage();
+        renderClipsList();
+        showStatus('All clips cleared');
+      }
+    }
+
+    /**
+     * Render the clips list UI
+     * All fields are sanitized to prevent XSS attacks
+     */
+    function renderClipsList() {
+      const listEl = document.getElementById('clipsList');
+      
+      if (savedClips.length === 0) {
+        listEl.innerHTML = '<div class="empty-state">No saved clips yet. Save your first loop above!</div>';
+        return;
+      }
+
+      listEl.innerHTML = savedClips.map(clip => {
+        // Sanitize all fields: coerce numbers and escape strings
+        const safeId = parseInt(clip.id, 10) || 0;
+        const safeTitle = escapeHtml(String(clip.title || 'Unknown Title'));
+        const safeStart = parseFloat(clip.startTime) || 0;
+        const safeEnd = parseFloat(clip.endTime) || 0;
+        const safeDuration = parseFloat(clip.duration) || (safeEnd - safeStart);
+        
+        return `
+        <div class="clip-item">
+          <div class="clip-info">
+            <div class="clip-title">${safeTitle}</div>
+            <div class="clip-meta">
+              ${safeStart}s - ${safeEnd}s (${safeDuration.toFixed(1)}s)
+            </div>
+          </div>
+          <div class="clip-actions">
+            <button class="btn-small" onclick="playClip(${safeId})">▶ Play</button>
+            <button class="btn-small btn-danger" onclick="deleteClip(${safeId})">✕</button>
+          </div>
+        </div>
+      `;
+      }).join('');
+    }
+
+    /**
+     * Export clips as JSON file
+     */
+    function exportClips() {
+      if (savedClips.length === 0) {
+        showStatus('No clips to export');
+        return;
+      }
+
+      const dataStr = JSON.stringify(savedClips, null, 2);
+      const blob = new Blob([dataStr], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `youtube-loops-${new Date().toISOString().split('T')[0]}.json`;
+      link.click();
+      URL.revokeObjectURL(url);
+      showStatus('Clips exported successfully!');
+    }
+
+    /**
+     * Import clips from JSON file
+     * Validates and sanitizes all imported data
+     */
+    function importClips(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const imported = JSON.parse(e.target.result);
+          if (!Array.isArray(imported)) {
+            showStatus('Invalid file format: expected array');
+            return;
+          }
+
+          // Validate and sanitize each clip
+          const validatedClips = imported.map((clip, index) => {
+            // Ensure all required fields exist and are valid types
+            const startTime = parseFloat(clip.startTime);
+            const endTime = parseFloat(clip.endTime);
+            
+            if (isNaN(startTime) || isNaN(endTime) || endTime <= startTime) {
+              console.warn(`Skipping invalid clip at index ${index}`);
+              return null;
+            }
+
+            return {
+              id: parseInt(clip.id, 10) || Date.now() + index,
+              url: String(clip.url || ''),
+              videoId: String(clip.videoId || ''),
+              title: String(clip.title || 'Unknown Title'),
+              startTime: startTime,
+              endTime: endTime,
+              duration: endTime - startTime
+            };
+          }).filter(clip => clip !== null);
+
+          if (validatedClips.length === 0) {
+            showStatus('No valid clips found in file');
+            return;
+          }
+
+          savedClips = validatedClips;
+          saveClipsToStorage();
+          renderClipsList();
+          showStatus(`Imported ${validatedClips.length} valid clip(s)`);
+        } catch (error) {
+          showStatus('Error reading file');
+          console.error('Import error:', error);
+        }
+      };
+      reader.readAsText(file);
+      event.target.value = '';
+    }
+
+    /**
+     * Escape HTML to prevent XSS
+     */
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
     }
 
     /**
@@ -347,24 +850,28 @@
       const statusEl = document.getElementById('status');
       statusEl.textContent = message;
       statusEl.classList.add('active');
+      setTimeout(() => {
+        statusEl.classList.remove('active');
+      }, 3000);
     }
 
     /**
      * Callback for YouTube IFrame API
-     * Called automatically when API is ready
      */
     window.onYouTubeIframeAPIReady = function() {
       console.log('YouTube API ready');
       apiReady = true;
       
-      // Process any pending video load request
       if (pendingVideoId) {
         const videoId = pendingVideoId;
         pendingVideoId = null;
         initializePlayer(videoId);
-        document.getElementById('player').classList.add('active');
+        document.getElementById('playerWrapper').classList.add('active');
       }
     };
+
+    // Initialize app when page loads
+    initApp();
   </script>
 </body>
 </html>
