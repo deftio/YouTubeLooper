@@ -34,9 +34,21 @@ This is a pure HTML/CSS/JavaScript application with no frameworks or dependencie
 ### User Interface
 - **Clean Design**: Minimalist interface with gradient background and card layout
 - **Modern Typography**: System sans-serif font stack for consistency
-- **Responsive Layout**: Grid and flexbox for adaptive design
+- **Fully Responsive**: Optimized layouts for desktop, tablet, and mobile devices
+- **Touch-Friendly**: Large tap targets and proper touch feedback on mobile
 - **Status Messages**: Auto-hiding feedback messages (3 second timeout)
 - **Empty States**: Helpful messages when lists are empty
+
+### Responsive Design
+- **Desktop (>768px)**: Full two-column layout with side-by-side time inputs
+- **Tablet (≤768px)**: Adjusted spacing and font sizes for medium screens
+- **Mobile (≤480px)**:
+  - Vertical stacking of all form elements
+  - Full-width buttons for easier tapping
+  - Larger tap targets for clip actions
+  - 16px input font size (prevents iOS auto-zoom)
+  - Touch-optimized interactions (no transform on hover)
+  - Reduced padding for more screen space
 
 ## Security Features
 
@@ -136,9 +148,12 @@ The app is served using Python's built-in HTTP server on port 5000.
 
 ## Browser Compatibility
 
-- **Modern Browsers**: Chrome, Firefox, Safari, Edge (full support)
+- **Desktop Browsers**: Chrome, Firefox, Safari, Edge (full support)
 - **Legacy Support**: IE11 (with vendor prefixes)
-- **Mobile**: iOS Safari, Chrome Mobile (fullscreen may vary by device)
+- **Mobile Browsers**: iOS Safari, Chrome Mobile, Firefox Mobile
+- **Tablets**: iPad, Android tablets (optimized layouts)
+- **Responsive**: All screen sizes from 320px to 4K displays
+- **Touch Devices**: Full touch support with optimized interactions
 
 ## Security Considerations
 

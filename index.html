@@ -296,6 +296,220 @@
       transform: translateY(-2px);
       box-shadow: 0 10px 20px rgba(237, 137, 54, 0.3);
     }
+
+    /* Responsive Design - Tablet */
+    @media (max-width: 768px) {
+      body {
+        padding: 12px;
+      }
+
+      .container {
+        padding: 24px;
+        border-radius: 12px;
+      }
+
+      h1 {
+        font-size: 28px;
+      }
+
+      .subtitle {
+        font-size: 13px;
+        margin-bottom: 24px;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      .clips-section {
+        margin-top: 32px;
+        padding-top: 24px;
+      }
+
+      .clips-header h2 {
+        font-size: 18px;
+      }
+
+      .btn-group {
+        gap: 6px;
+        margin-bottom: 24px;
+      }
+
+      .btn-group button {
+        padding: 10px 8px;
+        font-size: 13px;
+      }
+
+      .file-input-label {
+        padding: 10px 16px;
+        font-size: 13px;
+      }
+    }
+
+    /* Responsive Design - Mobile */
+    @media (max-width: 480px) {
+      body {
+        padding: 8px;
+      }
+
+      .container {
+        padding: 20px;
+        border-radius: 12px;
+      }
+
+      h1 {
+        font-size: 24px;
+        margin-bottom: 6px;
+      }
+
+      .subtitle {
+        font-size: 12px;
+        margin-bottom: 20px;
+      }
+
+      .form-group {
+        margin-bottom: 16px;
+      }
+
+      label {
+        font-size: 13px;
+        margin-bottom: 6px;
+      }
+
+      input[type="text"],
+      input[type="number"] {
+        padding: 10px 12px;
+        font-size: 16px; /* Prevents zoom on iOS */
+      }
+
+      /* Stack time inputs vertically on mobile */
+      .time-inputs {
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+
+      button {
+        font-size: 15px;
+        padding: 12px 16px;
+      }
+
+      .btn-primary,
+      .btn-secondary {
+        margin-bottom: 10px;
+      }
+
+      /* Stack button group vertically on small screens */
+      .btn-group {
+        flex-direction: column;
+        gap: 8px;
+        margin-bottom: 20px;
+      }
+
+      .btn-group button,
+      .file-input-label {
+        width: 100%;
+        padding: 12px;
+        font-size: 14px;
+      }
+
+      .fullscreen-btn {
+        bottom: 8px;
+        right: 8px;
+        padding: 6px 12px;
+        font-size: 12px;
+      }
+
+      .video-title {
+        font-size: 13px;
+        padding: 10px;
+      }
+
+      .status {
+        font-size: 12px;
+        padding: 10px;
+      }
+
+      .helper-text {
+        font-size: 11px;
+      }
+
+      /* Clips section mobile adjustments */
+      .clips-section {
+        margin-top: 24px;
+        padding-top: 20px;
+      }
+
+      .clips-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+
+      .clips-header h2 {
+        font-size: 18px;
+      }
+
+      .clips-list {
+        max-height: 300px;
+      }
+
+      .clip-item {
+        padding: 12px;
+        margin-bottom: 10px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+
+      .clip-info {
+        width: 100%;
+      }
+
+      .clip-title {
+        font-size: 13px;
+        white-space: normal;
+        overflow: visible;
+        text-overflow: clip;
+      }
+
+      .clip-meta {
+        font-size: 11px;
+      }
+
+      .clip-actions {
+        width: 100%;
+        justify-content: stretch;
+      }
+
+      .btn-small {
+        flex: 1;
+        margin: 0;
+        padding: 10px;
+        font-size: 13px;
+      }
+
+      .empty-state {
+        padding: 30px 15px;
+        font-size: 13px;
+      }
+    }
+
+    /* Touch-friendly hover states for mobile */
+    @media (hover: none) and (pointer: coarse) {
+      button:hover {
+        transform: none;
+        box-shadow: none;
+      }
+
+      .file-input-label:hover {
+        transform: none;
+        box-shadow: none;
+      }
+
+      button:active {
+        opacity: 0.8;
+      }
+    }
   </style>
 </head>
 <body>
