@@ -4,7 +4,8 @@
 
 Ever wished you could loop just that *perfect* guitar solo? Or that hilarious 3-second moment? Or practice that one dance move over and over?
 
-**YouTube Looper** lets you loop any section of any YouTube video with surgical precision. No ads, no fuss, no complicated video editing software.
+**YouTube Looper** lets you loop any section of any YouTube video and play it.   
+Try it here: **[YouTube Looper](deftio.github.io/YouTubeLooper/)**  
 
 ## 🎯 What It Does
 
